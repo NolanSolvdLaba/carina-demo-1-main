@@ -17,21 +17,17 @@ package com.zebrunner.carina.demo.api;
 
 import com.zebrunner.carina.api.AbstractApiMethodV2;
 import com.zebrunner.carina.api.annotation.Endpoint;
-import com.zebrunner.carina.api.annotation.RequestTemplatePath;
 import com.zebrunner.carina.api.annotation.ResponseTemplatePath;
 import com.zebrunner.carina.api.annotation.SuccessfulHttpStatus;
 import com.zebrunner.carina.api.http.HttpMethodType;
 import com.zebrunner.carina.api.http.HttpResponseStatusType;
 import com.zebrunner.carina.utils.config.Configuration;
 
-@Endpoint(url = "${base_url}/users", methodType = HttpMethodType.POST)
-@RequestTemplatePath(path = "reqRes_api/users/_post/rq.json")
-@ResponseTemplatePath(path = "reqRes_api/users/_post/rs.json")
-@SuccessfulHttpStatus(status = HttpResponseStatusType.CREATED_201)
-public class PostUserMethod extends AbstractApiMethodV2 {
-
-    public PostUserMethod() {
-        super("reqRes_api/users/_post/rq.json", "reqRes_api/users/_post/rs.json", "reqRes_api/users/user.properties");
+@Endpoint(url = "${base_url}/users/10", methodType = HttpMethodType.GET)
+@ResponseTemplatePath(path = "reqRes_api/users/_patch/rs.json")
+@SuccessfulHttpStatus(status = HttpResponseStatusType.OK_200)
+public class PatchUserMethod extends AbstractApiMethodV2 {
+    public PatchUserMethod() {
         replaceUrlPlaceholder("base_url", Configuration.getRequired("api_url"));
     }
 }
