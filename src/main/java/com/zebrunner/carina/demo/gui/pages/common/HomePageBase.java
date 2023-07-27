@@ -15,13 +15,12 @@
  *******************************************************************************/
 package com.zebrunner.carina.demo.gui.pages.common;
 
-import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
-
 import com.zebrunner.carina.demo.gui.components.footer.FooterMenuBase;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 public abstract class HomePageBase extends AbstractPage {
 
@@ -45,6 +44,69 @@ public abstract class HomePageBase extends AbstractPage {
     public void open() {
         super.open();
         acceptCookies.clickIfPresent(3);
+    }
+
+    public ExtendedWebElement getLoginIcon1() {
+        return null;
+    }
+
+
+
+    public ExtendedWebElement getLoginIcon3() {
+        return null;
+    }
+
+    public ExtendedWebElement getPhoneFinderButton() {
+        return null;
+    }
+
+
+    public void openPopup() {
+    }
+
+    public ExtendedWebElement getMerchPage() {
+        return null;
+    }
+
+    public boolean isLoginIconPresent() {
+        return false;
+    }
+
+    public void openLoginForm() {};
+
+    public void clickOnInstagramIcon() {};
+
+    public void clickMerchPage() {};
+
+    public void clickPhoneFinderButton() {};
+
+    public ExtendedWebElement getUserAccountName(){
+        return null;
+    }
+
+    public ExtendedWebElement getInstagramIcon() {
+        return null;
+    }
+
+    public ExtendedWebElement getEmailInput() {
+        return null;
+    }
+
+
+    public ExtendedWebElement getEmailPassword() {
+        return null;
+    }
+
+    public ExtendedWebElement getSubmitPassword() {
+        return null;
+    }
+
+    public ExtendedWebElement getLoginFail() {
+        return null;
+    }
+
+    public ExtendedWebElement getLoginFailExplanation() {
+        return null;
     }
 
 }
