@@ -18,7 +18,6 @@ package com.zebrunner.carina.demo.gui.pages.android;
 import java.util.List;
 
 import com.zebrunner.carina.demo.gui.components.LoginComponent;
-import com.zebrunner.carina.demo.gui.components.header.HeaderMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
