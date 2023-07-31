@@ -92,9 +92,6 @@ public class HomePage extends HomePageBase {
         return footer;
     }
 
-    public HeaderMenu getHeaderMenu() {
-        return null;
-    }
 
     @Override
     public CompareModelsPageBase openComparePage() {

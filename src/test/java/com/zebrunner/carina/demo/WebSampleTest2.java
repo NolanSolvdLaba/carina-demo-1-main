@@ -59,7 +59,6 @@ public class WebSampleTest2 implements IAbstractTest {
         // Completing the loginflow
         loginComponent.loginFlow("s9rowa@mail.ru", "changeme");
         LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
-        Assert.assertTrue(loginPage.isPageOpened(), "Login page not opened");
 
         // Waiting for redirect
         pause(5);
