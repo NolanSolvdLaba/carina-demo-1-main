@@ -31,4 +31,8 @@ public abstract class FooterMenuBase extends AbstractUIObject {
     public abstract NewsPageBase openNewsPage();
 
     public abstract HomePageBase openHomePage();
+
+    public boolean isHomeLinkPresent() {
+        return false;
+    }
 }

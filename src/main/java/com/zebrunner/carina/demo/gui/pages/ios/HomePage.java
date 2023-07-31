@@ -29,7 +29,7 @@ import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = HomePageBase.class)
-public class HomePage extends HomePageBase {
+public abstract class HomePage extends HomePageBase {
 
     @FindBy(xpath = "//div[contains(@class, 'general-menu material-card')]//a")
     private List<ExtendedWebElement> brandLinks;
@@ -81,11 +81,5 @@ public class HomePage extends HomePageBase {
         return initPage(driver, CompareModelsPageBase.class);
     }
 
-    @Override
-    public AllBrandsPageBase openAllBrandsPage() {
-        headerMenuButton.click();
-        allBrandsButton.click();
-        return initPage(driver, AllBrandsPageBase.class);
-    }
 
 }

@@ -17,6 +17,8 @@ package com.zebrunner.carina.demo.gui.pages.android;
 
 import java.util.List;
 
+import com.zebrunner.carina.demo.gui.components.LoginComponent;
+import com.zebrunner.carina.demo.gui.components.header.HeaderMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -69,9 +71,30 @@ public class HomePage extends HomePageBase {
         throw new RuntimeException("Unable to open brand: " + brandName);
     }
 
+
+    @Override
+    public void openLoginForm() {}
+
+    @Override
+    public void clickLoginIcon() {}
+
+    @Override
+    public LoginComponent getLoginComponent() {
+        return null;
+    }
+
+    @Override
+    public boolean isLoginIconPresent() {
+        return false;
+    }
+
     @Override
     public MobileFooterMenu getFooterMenu() {
         return footer;
+    }
+
+    public HeaderMenu getHeaderMenu() {
+        return null;
     }
 
     @Override

@@ -20,12 +20,14 @@ import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import com.zebrunner.carina.core.registrar.tag.Priority;
 import com.zebrunner.carina.core.registrar.tag.TestPriority;
+import com.zebrunner.carina.demo.gui.components.LoginComponent;
 import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
+import com.zebrunner.carina.demo.gui.pages.common.LoginPageBase;
+import com.zebrunner.carina.demo.gui.pages.common.AccountPageBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  * This sample shows how create Web test.
@@ -35,129 +37,98 @@ import java.awt.event.KeyEvent;
 public class WebSampleTest2 implements IAbstractTest {
     @Test
     @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P1)
-    @TestLabel(name = "feature", value = { "web", "regression" })
-    public void testLoginWrongEmail() throws AWTException, InterruptedException {
-        //Opening the gsmarena homepage
-        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-
-        //Zooming out to get the login icon on screen
-        for (int i = 0; i < 3; i++) {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_SUBTRACT);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-            robot.keyRelease(KeyEvent.VK_SUBTRACT);
-        }
-
-        //Waiting to have everything in view
-        Thread.sleep(3000);
-
-        //Clicking the login icon
-        homePage.getLoginIcon1().click();
-
-        //Waiting for the login form to pop-up
-        Thread.sleep(3000);
-
-        //Filling out the form and clicking submit
-        homePage.getEmailInput().type("your_dad@dad.org");
-        homePage.getEmailPassword().type("changeme");
-        homePage.getSubmitPassword().click();
-
-        Thread.sleep(3000);
-
-        String expectedResponse = "Reason: User record not found.";
-
-        Assert.assertEquals(homePage.getLoginFailExplanation().getText(),  expectedResponse, "Unsuccessful login response does not match.");
-
-        homePage.getDriver().close();
-    }
-
-
-    @Test
-    @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P3)
     @TestLabel(name = "feature", value = { "web", "regression" })
-    public void testSuccessfulLogin() throws AWTException, InterruptedException {
+    public void testCorrectLoginCredentials() {
         //Opening the gsmarena homepage
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
 
-        //Zooming out to get the login icon on screen
-        for (int i = 0; i < 3; i++) {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_SUBTRACT);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-            robot.keyRelease(KeyEvent.VK_SUBTRACT);
-        }
+        // Pausing test for 5 seconds
+        pause(5);
 
-        //Waiting to have everything in view
-        Thread.sleep(3000);
+        // Verifying presence of login icon
+        Assert.assertTrue(homePage.isLoginIconPresent(), "Login Icon is not present!");
 
-        //Clicking the login icon
-        homePage.getLoginIcon1().click();
+        // Opening login form and verifying that the email input field is present
+        homePage.openLoginForm();
+        LoginComponent loginComponent = homePage.getLoginComponent();
+        Assert.assertTrue(loginComponent.isEmailInputPresent(), "Email input is not present!");
 
-        //Waiting for the login form to pop-up
-        Thread.sleep(3000);
+        // Completing the loginflow
+        loginComponent.loginFlow("s9rowa@mail.ru", "changeme");
+        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        Assert.assertTrue(loginPage.isPageOpened(), "Login page not opened");
 
-        //Filling out the form and clicking submit
-        homePage.getEmailInput().type("s9rowa@mail.ru");
-        homePage.getEmailPassword().type("changeme");
-        homePage.getSubmitPassword().click();
+        // Waiting for redirect
+        pause(5);
 
-        //Verifying that the user is logged
-        Assert.assertTrue(homePage.getUserAccountName().isElementPresent(), "User unsuccessfully logged in");
-
-        homePage.getDriver().close();
+        // Clicking login icon in order to access the user account page
+        homePage.clickLoginIcon();
+        AccountPageBase accountPage = initPage(getDriver(), AccountPageBase.class);
+        Assert.assertTrue(accountPage.isPageOpened(), "User not logged in");
     }
+
 
     @Test
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P2)
     @TestLabel(name = "feature", value = { "web", "regression" })
-    public void testLoginWrongPassword() throws AWTException, InterruptedException {
+    public void testLoginWrongEmail() {
         //Opening the gsmarena homepage
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.open();
-
-        //Zooming out to get the login icon on screen
-        for (int i = 0; i < 3; i++) {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_SUBTRACT);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-            robot.keyRelease(KeyEvent.VK_SUBTRACT);
-        }
-
-
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
 
-        //Waiting to have everything in view
-        Thread.sleep(3000);
+        // Pausing test for 5 seconds
+        pause(5);
 
-        //Clicking the login icon
-        homePage.getLoginIcon1().click();
+        // Verifying presence of login icon
+        Assert.assertTrue(homePage.isLoginIconPresent(), "Login Icon is not present!");
 
-        //Waiting for the login form to pop-up
-        Thread.sleep(3000);
+        // Opening login form and verifying that the email input field is present
+        homePage.openLoginForm();
+        LoginComponent loginComponent = homePage.getLoginComponent();
+        Assert.assertTrue(loginComponent.isEmailInputPresent(), "Email input is not present!");
 
-        //Filling out the form and clicking submit
-        homePage.getEmailInput().type("s9rowa@mail.ru");
-        homePage.getEmailPassword().type("hoagie-mouth");
-        homePage.getSubmitPassword().click();
+        // Completing the loginflow
+        loginComponent.loginFlow("your_dad@dad.com", "changeme");
+        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
 
-        Thread.sleep(3000);
-
-        String expectedResponse = "Reason: Wrong password.";
-
-        Assert.assertEquals(homePage.getLoginFailExplanation().getText(),  expectedResponse, "Unsuccessful password response does not match.");
-
-        homePage.getDriver().close();
+        // Verifying that the login page is opened and explanation is present
+        Assert.assertTrue(loginPage.isPageOpened(), "Login page not opened");
+        Assert.assertEquals(loginPage.getUnsuccessfulLoginExplanation().getText(), "Reason: User record not found.", "Login explanation not present");
     }
 
+    @Test
+    @MethodOwner(owner = "qpsdemo")
+    @TestPriority(Priority.P1)
+    @TestLabel(name = "feature", value = { "web", "regression" })
+    public void testLoginWrongPassword() throws AWTException, InterruptedException {
+        // Opening the gsmarena homepage
+        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        // Pausing test for 5 seconds
+        pause(5);
+
+        // Verifying presence of login icon
+        Assert.assertTrue(homePage.isLoginIconPresent(), "Login Icon is not present!");
+
+        // Opening login form and verifying that the email input field is present
+        homePage.openLoginForm();
+        LoginComponent loginComponent = homePage.getLoginComponent();
+        Assert.assertTrue(loginComponent.isEmailInputPresent(), "Email input is not present!");
+
+        // Completing the loginflow
+        loginComponent.loginFlow("s9rowa@mail.ru", "yourdad");
+        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+
+        // Verifying that the login page is opened and explanation is present
+        Assert.assertTrue(loginPage.isPageOpened(), "Login page not opened");
+        Assert.assertEquals(loginPage.getUnsuccessfulLoginExplanation().getText(), "Reason: Wrong password.", "Login explanation not present");
+    }
 
 }

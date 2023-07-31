@@ -39,6 +39,15 @@ public class FooterMenu extends FooterMenuBase {
         super(driver, searchContext);
     }
 
+    public ExtendedWebElement getHomeLink(){
+        return homeLink;
+    }
+
+    @Override
+    public boolean isHomeLinkPresent(){
+        return homeLink.isPresent();
+    }
+
     @Override
     public HomePage openHomePage() {
         homeLink.click();
