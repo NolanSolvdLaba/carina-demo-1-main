@@ -58,7 +58,6 @@ public class WebSampleTest2 implements IAbstractTest {
 
         // Completing the loginflow
         loginComponent.loginFlow("s9rowa@mail.ru", "changeme");
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
 
         // Waiting for redirect
         pause(5);
