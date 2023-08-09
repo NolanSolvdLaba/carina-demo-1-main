@@ -24,6 +24,7 @@ import com.zebrunner.carina.demo.gui.components.LoginComponent;
 import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
 import com.zebrunner.carina.demo.gui.pages.common.LoginPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.AccountPageBase;
+import com.zebrunner.carina.utils.R;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -90,8 +91,11 @@ public class WebSampleTest2 implements IAbstractTest {
         LoginComponent loginComponent = homePage.getLoginComponent();
         Assert.assertTrue(loginComponent.isEmailInputPresent(), "Email input is not present!");
 
+        String wrongEmail = R.TESTDATA.get("user1.email");
+        String correctLogin = R.TESTDATA.get("user1.password");
+
         // Completing the loginflow
-        loginComponent.loginFlow("your_dad@dad.com", "changeme");
+        loginComponent.loginFlow(wrongEmail, correctLogin);
         LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
 
         // Verifying that the login page is opened and explanation is present
@@ -128,5 +132,4 @@ public class WebSampleTest2 implements IAbstractTest {
         Assert.assertTrue(loginPage.isPageOpened(), "Login page not opened");
         Assert.assertEquals(loginPage.getUnsuccessfulLoginExplanation().getText(), "Reason: Wrong password.", "Login explanation not present");
     }
-
 }

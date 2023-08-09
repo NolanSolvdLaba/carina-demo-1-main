@@ -34,6 +34,8 @@ public abstract class HomePageBase extends AbstractPage {
         setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
     }
 
+    public abstract BrandModelsPageBase selectBrand(String brandName);
+
     public abstract void openLoginForm();
 
     public abstract void clickLoginIcon();
@@ -42,7 +44,7 @@ public abstract class HomePageBase extends AbstractPage {
 
     public abstract boolean isLoginIconPresent();
 
-    public abstract BrandModelsPageBase selectBrand(String brandName);
+//    public abstract BrandModelsPageBase selectBrand(String brandName);
 
     public abstract FooterMenuBase getFooterMenu();
 
